@@ -11,13 +11,10 @@ This is a simple example of how to use the library to create a simple chatbot th
 ```go
 import (
 	"context"
-	"errors"
 	"fmt"
-	"testing"
 
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/openai"
-	"github.com/tmc/langchaingo/schema"
 	"github.com/tmc/langgraphgo/graph"
 )
 
@@ -35,7 +32,7 @@ func main() {
 			return nil, err
 		}
 		return append(state,
-			llms.TextParts(schema.ChatMessageTypeAI, r.Choices[0].Content),
+			llms.TextParts(llms.ChatMessageTypeAI, r.Choices[0].Content),
 		), nil
 
 	})
@@ -54,7 +51,7 @@ func main() {
 	ctx := context.Background()
 	// Let's run it!
 	res, err := runnable.Invoke(ctx, []llms.MessageContent{
-		llms.TextParts(schema.ChatMessageTypeHuman, "What is 1 + 1?"),
+		llms.TextParts(llms.ChatMessageTypeHuman, "What is 1 + 1?"),
 	})
 	if err != nil {
 		panic(err)
